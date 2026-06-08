@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIO 213 Final Exam Study Hub — Chapters 7–9</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="dna">Bio</span>
+      <div>
+        <h1>BIO 213 — Final Exam Study Hub</h1>
+        <p class="subtitle">Chapters 7–9 · DNA &amp; Gene Function · Replication &amp; Mitosis · Meiosis</p>
+      </div>
+    </div>
+    <div class="exam-badge" id="examBadge">Final · Thu Jun 11 · BRAE 08-123</div>
+  </div>
+  <nav class="tabs">
+    <button class="tab-btn active" data-view="home">Home</button>
+    <button class="tab-btn" data-view="notes">Notes</button>
+    <button class="tab-btn" data-view="quizzes">Chapter Quizzes</button>
+    <button class="tab-btn" data-view="exam">Mock Final</button>
+    <button class="tab-btn" data-view="flashcards">Flashcards</button>
+  </nav>
+</header>
+
+<main id="app">
+  <!-- HOME -->
+  <section class="view active" id="view-home">
+    <div class="hero">
+      <h2>Let's get you ready for the final.</h2>
+      <p>This site covers <strong>only Chapters 7, 8, and 9</strong> — exactly what your final tests. Everything is built from your textbook (<em>Hoefnagels, Biology: Concepts &amp; Investigations</em>) plus the specific points your professor flagged in class.</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="home-card" data-go="notes">
+        <div class="hc-icon">Read</div>
+        <h3>Comprehensive Notes</h3>
+        <p>Plain-English notes for every section of Ch. 7–9, written so you can learn the material from scratch.</p>
+        <span class="hc-link">Read notes →</span>
+      </div>
+      <div class="home-card" data-go="quizzes">
+        <div class="hc-icon">Practice</div>
+        <h3>Chapter Quizzes</h3>
+        <p>A separate randomized multiple-choice quiz for each chapter. Instant feedback explains every answer.</p>
+        <span class="hc-link">Start a quiz →</span>
+      </div>
+      <div class="home-card" data-go="exam">
+        <div class="hc-icon">Test</div>
+        <h3>Mock Final Exam</h3>
+        <p>A cumulative 40-question practice exam across all three chapters — sized like one front of a Scantron.</p>
+        <span class="hc-link">Take mock exam →</span>
+      </div>
+      <div class="home-card" data-go="flashcards">
+        <div class="hc-icon">Memorize</div>
+        <h3>Flashcards</h3>
+        <p>Flip-card drills on the key terms and definitions most likely to show up. Shuffle and self-test.</p>
+        <span class="hc-link">Drill terms →</span>
+      </div>
+    </div>
+
+    <div class="prof-box">
+      <h3>Straight from your professor — know these cold</h3>
+      <ul>
+        <li><strong>Hydrogen bonds</strong> hold the two strands of DNA together.</li>
+        <li>DNA strands are read <strong>5′ → 3′</strong> (start to end, left to right).</li>
+        <li>Two processes: <strong>DNA → RNA = transcription</strong>; <strong>RNA → protein = translation</strong>.</li>
+        <li>RNA types to know: <strong>hnRNA, mRNA, rRNA, tRNA</strong>.</li>
+        <li>DNA vs. RNA: RNA gets a <strong>5′ cap</strong> and a <strong>poly-A tail</strong>; <strong>introns are removed by splicing</strong>, done by <strong>spliceosomes</strong>.</li>
+        <li>The <strong>longest part of the cell cycle is interphase</strong>. Cells in <strong>G₀ never divide — but they are not dead</strong>.</li>
+        <li>Sister chromatids separate in <strong>anaphase of mitosis</strong> and <strong>anaphase II of meiosis</strong>.</li>
+      </ul>
+      <p class="prof-note">These exact points are woven into the notes, quizzes, and flashcards below.</p>
+    </div>
+
+    <div class="logistics">
+      <h3>Exam logistics (from Dr. Babu's email)</h3>
+      <ul>
+        <li>Final is <strong>Thursday, June 11, 2026</strong> in <strong>BRAE 08-123</strong> — 213-01 at 7:10–8:30pm, 213-02 at 8:40–10:00pm.</li>
+        <li>Non-cumulative "final" covering <strong>chapters 7–9 only</strong>.</li>
+        <li>Bring a blank <strong>Scantron 882-E</strong> and a <strong>No. 2 pencil</strong>. It's a hefty set of multiple-choice questions.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- NOTES -->
+  <section class="view" id="view-notes">
+    <h2 class="view-title">Comprehensive Notes</h2>
+    <div class="chapter-switch" id="notesChapterSwitch">
+      <button class="chip active" data-ch="7">Chapter 7</button>
+      <button class="chip" data-ch="8">Chapter 8</button>
+      <button class="chip" data-ch="9">Chapter 9</button>
+    </div>
+    <div id="notesContent" class="notes-content"></div>
+  </section>
+
+  <!-- QUIZZES -->
+  <section class="view" id="view-quizzes">
+    <h2 class="view-title">Chapter Quizzes</h2>
+    <div id="quizPicker" class="quiz-picker">
+      <p>Pick a chapter. Questions are pulled in random order, with the answer choices shuffled each time.</p>
+      <div class="card-grid">
+        <div class="home-card quiz-card" data-quiz="7">
+          <div class="hc-icon">Ch. 07</div>
+          <h3>Chapter 7</h3>
+          <p>DNA Structure &amp; Gene Function</p>
+          <span class="hc-link">Start →</span>
+        </div>
+        <div class="home-card quiz-card" data-quiz="8">
+          <div class="hc-icon">Ch. 08</div>
+          <h3>Chapter 8</h3>
+          <p>DNA Replication, Binary Fission &amp; Mitosis</p>
+          <span class="hc-link">Start →</span>
+        </div>
+        <div class="home-card quiz-card" data-quiz="9">
+          <div class="hc-icon">Ch. 09</div>
+          <h3>Chapter 9</h3>
+          <p>Sexual Reproduction &amp; Meiosis</p>
+          <span class="hc-link">Start →</span>
+        </div>
+      </div>
+    </div>
+    <div id="quizRunner" class="quiz-runner hidden"></div>
+  </section>
+
+  <!-- MOCK EXAM -->
+  <section class="view" id="view-exam">
+    <h2 class="view-title">Cumulative Mock Final</h2>
+    <div id="examIntro" class="exam-intro">
+      <p>This mock final draws <strong>40 questions</strong> from all three chapters, in random order — about the size of one front side of a Scantron. Difficulty is gauged like a real exam: not trivia, not trick questions. You'll get your score and a full review at the end.</p>
+      <button class="btn-primary" id="startExamBtn">Start Mock Final (40 questions)</button>
+    </div>
+    <div id="examRunner" class="quiz-runner hidden"></div>
+  </section>
+
+  <!-- FLASHCARDS -->
+  <section class="view" id="view-flashcards">
+    <h2 class="view-title">Flashcards</h2>
+    <div class="chapter-switch" id="flashChapterSwitch">
+      <button class="chip active" data-deck="all">All</button>
+      <button class="chip" data-deck="7">Ch. 7</button>
+      <button class="chip" data-deck="8">Ch. 8</button>
+      <button class="chip" data-deck="9">Ch. 9</button>
+    </div>
+    <div id="flashArea" class="flash-area"></div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <p>Built for BIO 213 final review · Chapters 7–9 · Good luck.</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
