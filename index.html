@@ -22,7 +22,8 @@
     <button class="tab-btn active" data-view="home">Home</button>
     <button class="tab-btn" data-view="notes">Notes</button>
     <button class="tab-btn" data-view="quizzes">Chapter Quizzes</button>
-    <button class="tab-btn" data-view="exam">Mock Final</button>
+    <button class="tab-btn" data-view="oldexam">Old Final</button>
+    <button class="tab-btn" data-view="exam">Predicted Final</button>
     <button class="tab-btn" data-view="flashcards">Flashcards</button>
   </nav>
 </header>
@@ -126,12 +127,29 @@
     <div id="quizRunner" class="quiz-runner hidden"></div>
   </section>
 
-  <!-- MOCK EXAM -->
+  <!-- OLD FINAL (real past exam) -->
+  <section class="view" id="view-oldexam">
+    <h2 class="view-title">Last Year's Final Exam</h2>
+    <div id="oldExamIntro" class="exam-intro">
+      <p>This is the <strong>actual final from last year</strong> — Dr. Babu's BIO 213 final, Version Y (100 pts, 2 pts each). Questions appear in their original order with the original answer choices, so you can take it just like the real thing. Each answer includes a worked-out explanation.</p>
+      <div class="note-callout">
+        <p><strong>Two things to know:</strong></p>
+        <ul>
+          <li>Questions <strong>22–27 aren't included</strong> — that page wasn't in the photos.</li>
+          <li>Last year's exam also had a few <strong>Chapter 4–6 questions</strong> (photosynthesis, respiration). Those are clearly tagged "out of scope" because <strong>this year's final is Chapters 7–9 only</strong>. Use them for context, not as study priorities.</li>
+        </ul>
+      </div>
+      <button class="btn-primary" id="startOldExamBtn">Take the Old Final</button>
+    </div>
+    <div id="oldExamRunner" class="quiz-runner hidden"></div>
+  </section>
+
+  <!-- PREDICTED FINAL (built from old exam patterns) -->
   <section class="view" id="view-exam">
-    <h2 class="view-title">Cumulative Mock Final</h2>
+    <h2 class="view-title">Predicted Final</h2>
     <div id="examIntro" class="exam-intro">
-      <p>This mock final draws <strong>40 questions</strong> from all three chapters, in random order — about the size of one front side of a Scantron. Difficulty is gauged like a real exam: not trivia, not trick questions. You'll get your score and a full review at the end.</p>
-      <button class="btn-primary" id="startExamBtn">Start Mock Final (40 questions)</button>
+      <p>A <strong>40-question practice final</strong> built from last year's actual exam. It draws on the <strong>Chapter 7–9 questions Dr. Babu actually asked</strong> (your strongest predictor of what's coming) plus high-yield questions on the topics he stressed that the old exam under-tested — RNA processing, transcription vs. translation, operons, viruses, and nondisjunction. Questions and answer choices are shuffled each attempt.</p>
+      <button class="btn-primary" id="startExamBtn">Start Predicted Final (40 questions)</button>
     </div>
     <div id="examRunner" class="quiz-runner hidden"></div>
   </section>

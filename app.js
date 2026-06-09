@@ -16,14 +16,16 @@ function shuffle(arr) {
   return a;
 }
 
-/* Build a question instance with shuffled options, tracking the new correct index */
-function prepareQuestion(q) {
+/* Build a question instance, optionally shuffling options, tracking the new correct index.
+   Extra fields (n, tag, scope) are preserved. */
+function prepareQuestion(q, shuffleOpts = true) {
   const opts = q.options.map((text, idx) => ({ text, correct: idx === q.answer }));
-  const shuffled = shuffle(opts);
+  const arranged = shuffleOpts ? shuffle(opts) : opts;
   return {
+    ...q,
     q: q.q,
-    options: shuffled,
-    answer: shuffled.findIndex(o => o.correct),
+    options: arranged,
+    answer: arranged.findIndex(o => o.correct),
     explain: q.explain
   };
 }
@@ -57,9 +59,10 @@ renderNotes(7);
 function createQuiz(container, questions, opts = {}) {
   const title = opts.title || "Quiz";
   const onExit = opts.onExit || (() => {});
+  const shuffleOpts = opts.shuffleOptions !== false; // default true
 
   const state = {
-    questions: questions.map(prepareQuestion),
+    questions: questions.map(q => prepareQuestion(q, shuffleOpts)),
     current: 0,
     answers: new Array(questions.length).fill(null), // chosen index per question
     locked: new Array(questions.length).fill(false)
@@ -80,7 +83,8 @@ function createQuiz(container, questions, opts = {}) {
         <div class="progress-wrap"><div class="progress-bar" style="width:${((i) / total) * 100}%"></div></div>
         <span class="q-counter">Question ${i + 1} of ${total}</span>
       </div>
-      <p class="question-text">${q.q}</p>
+      ${q.tag ? `<div class="q-tag">${q.tag}</div>` : ""}
+      <p class="question-text">${q.n ? q.n + ". " : ""}${q.q}</p>
       <div class="options" id="optList"></div>
       <div class="explain" id="explainBox"></div>
       <div class="quiz-nav">
@@ -154,7 +158,8 @@ function createQuiz(container, questions, opts = {}) {
       const correct = yourIdx === q.answer;
       reviewHTML += `
         <div class="review-item ${correct ? "r-correct" : "r-wrong"}">
-          <div class="rq">${i + 1}. ${q.q}</div>
+          ${q.tag ? `<div class="q-tag">${q.tag}</div>` : ""}
+          <div class="rq">${q.n ? q.n + ". " : (i + 1) + ". "}${q.q}</div>
           ${!correct && yourIdx !== null ? `<div class="ra you-wrong">Your answer: ${q.options[yourIdx].text}</div>` : ""}
           <div class="ra right">Correct: ${q.options[q.answer].text}</div>
           <div class="rexp">${q.explain}</div>
@@ -203,13 +208,29 @@ $$(".quiz-card").forEach(card => {
   });
 });
 
-/* ---------- MOCK FINAL EXAM ---------- */
+/* ---------- OLD FINAL (real past exam, original order) ---------- */
+$("#startOldExamBtn").addEventListener("click", () => {
+  $("#oldExamIntro").classList.add("hidden");
+  createQuiz($("#oldExamRunner"), OLD_EXAM, {
+    title: "Old Final — Version Y (2025)",
+    shuffleOptions: false,           // keep original A–E order
+    onExit: () => $("#oldExamIntro").classList.remove("hidden")
+  });
+});
+
+/* ---------- PREDICTED FINAL (built from old exam's Ch. 7–9 questions) ---------- */
 $("#startExamBtn").addEventListener("click", () => {
-  const all = [...QUIZZES[7], ...QUIZZES[8], ...QUIZZES[9]];
-  const pick = shuffle(all).slice(0, 40);
+  // Strongest predictor: the actual Ch. 7–9 questions from last year's exam,
+  // plus high-yield extras on topics the professor stressed.
+  const fromOld = OLD_EXAM.filter(q => q.scope).map(q => {
+    const { n, ...rest } = q;       // drop the original number; reword as a fresh prompt
+    return rest;
+  });
+  const pool = [...fromOld, ...PREDICTED_EXTRA];
+  const pick = shuffle(pool).slice(0, 40);
   $("#examIntro").classList.add("hidden");
   createQuiz($("#examRunner"), pick, {
-    title: "Mock Final (Ch. 7–9)",
+    title: "Predicted Final (Ch. 7–9)",
     onExit: () => $("#examIntro").classList.remove("hidden")
   });
 });

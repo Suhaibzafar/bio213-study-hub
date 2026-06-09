@@ -119,6 +119,7 @@ table.note-table tr:nth-child(even) td{background:var(--surface-2)}
 .progress-wrap{flex:1;min-width:160px;height:5px;background:var(--line);border-radius:999px;overflow:hidden;margin:0 16px}
 .progress-bar{height:100%;background:var(--accent);width:0;transition:.35s}
 .q-counter{color:var(--muted);font-size:.82rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+.q-tag{display:inline-block;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-deep);background:var(--accent-soft);border:1px solid #cfe2d6;padding:3px 9px;border-radius:4px;margin-bottom:10px;font-weight:600}
 .question-text{font-family:var(--serif);font-size:1.3rem;line-height:1.4;margin:6px 0 22px;color:var(--ink)}
 .options{display:flex;flex-direction:column;gap:10px}
 .option{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line-strong);border-radius:8px;padding:14px 16px;cursor:pointer;transition:.12s;text-align:left;color:var(--ink);font-size:.97rem;font-family:var(--sans)}
@@ -141,8 +142,12 @@ table.note-table tr:nth-child(even) td{background:var(--surface-2)}
 .btn-ghost{background:transparent;border:1px solid var(--line-strong);color:var(--ink-soft);padding:11px 20px;border-radius:7px;cursor:pointer;font-family:var(--sans);font-size:.88rem;transition:.15s}
 .btn-ghost:hover{border-color:var(--accent);color:var(--accent-deep)}
 
-/* Mock exam intro */
+/* Exam intro */
 .exam-intro p{color:var(--ink-soft);font-size:1.02rem;max-width:64ch;margin-bottom:24px}
+.note-callout{background:#fbf3e4;border:1px solid #e6d3a8;border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:16px 20px;margin:0 0 26px;max-width:64ch}
+.note-callout p{margin:0 0 8px;font-size:.95rem}
+.note-callout ul{margin:0;padding-left:20px}
+.note-callout li{font-size:.92rem;color:var(--ink-soft);margin-bottom:5px}
 
 /* Results */
 .results{padding:6px}
