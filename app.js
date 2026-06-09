@@ -227,7 +227,7 @@ $("#startExamBtn").addEventListener("click", () => {
     return rest;
   });
   const pool = [...fromOld, ...PREDICTED_EXTRA];
-  const pick = shuffle(pool).slice(0, 40);
+  const pick = shuffle(pool).slice(0, 50);
   $("#examIntro").classList.add("hidden");
   createQuiz($("#examRunner"), pick, {
     title: "Predicted Final (Ch. 7–9)",
