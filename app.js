@@ -235,6 +235,16 @@ $("#startExamBtn").addEventListener("click", () => {
   });
 });
 
+/* ---------- PREDICTED FINAL 2 (second unique set) ---------- */
+$("#startExam2Btn").addEventListener("click", () => {
+  const pick = shuffle(PREDICTED2).slice(0, 50);
+  $("#exam2Intro").classList.add("hidden");
+  createQuiz($("#exam2Runner"), pick, {
+    title: "Predicted Final 2 (Ch. 7–9)",
+    onExit: () => $("#exam2Intro").classList.remove("hidden")
+  });
+});
+
 /* ============================================================
    FLASHCARDS
    ============================================================ */
