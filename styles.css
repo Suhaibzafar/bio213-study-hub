@@ -197,3 +197,42 @@ table.note-table tr:nth-child(even) td{background:var(--surface-2)}
   .notes-content{padding:10px 20px 24px}
   .quiz-runner{padding:24px 20px}
 }
+
+/* Diagrams & Labeling */
+.dgm-lead{color:var(--ink-soft);font-size:1.02rem;max-width:64ch;margin:0 0 24px}
+.phase-launch{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;background:var(--accent-soft);border:1px solid #cfe2d6;border-radius:10px;padding:22px 26px}
+.phase-launch h3{margin:0 0 6px;color:var(--accent-deep);font-size:1.35rem}
+.phase-launch p{margin:0;color:var(--ink-soft);font-size:.92rem;max-width:54ch}
+.phase-launch .btn-primary{white-space:nowrap;flex:none}
+.dgm-h{font-size:1.5rem;margin:42px 0 16px;border-top:1px solid var(--line);padding-top:30px}
+.diagram-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:24px 28px;box-shadow:var(--shadow);margin-bottom:26px}
+.dgm-head .q-tag{margin-bottom:8px}
+.dgm-head h3{margin:0 0 4px;font-size:1.4rem;color:var(--ink)}
+.dgm-head p{margin:0 0 18px;color:var(--muted);font-size:.92rem}
+.dgm-body{display:flex;gap:30px;flex-wrap:wrap;align-items:flex-start}
+.dgm-figure{flex:1 1 320px;min-width:280px}
+.dgm-figure svg{width:100%;height:auto;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:8px}
+.dgm-labels{flex:1 1 250px;min-width:230px}
+.label-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.label-row .num{width:26px;height:26px;flex:none;border-radius:50%;background:var(--accent-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem}
+.label-row select{flex:1;padding:9px 11px;border:1px solid var(--line-strong);border-radius:6px;font-family:var(--sans);font-size:.9rem;background:var(--surface);color:var(--ink);cursor:pointer}
+.label-row select:focus{outline:none;border-color:var(--accent)}
+.label-row.correct select{border-color:var(--correct);background:var(--correct-bg)}
+.label-row.wrong select{border-color:var(--wrong);background:var(--wrong-bg)}
+.label-row .verdict{width:16px;flex:none;font-weight:700;text-align:center}
+.label-row.correct .verdict{color:var(--correct)}
+.label-row.wrong .verdict{color:var(--wrong)}
+.dgm-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.dgm-actions .btn-primary,.dgm-actions .btn-ghost{padding:9px 18px}
+.dgm-score{font-family:var(--serif);font-weight:600;margin-top:14px;font-size:1.05rem}
+.dgm-blurbs{margin-top:10px}
+.dgm-blurbs ul{margin:0;padding-left:18px}
+.dgm-blurbs li{font-size:.86rem;color:var(--ink-soft);margin-bottom:6px}
+.dgm-blurbs b{color:var(--accent-deep)}
+/* phase-ID images render inside the quiz question paragraph */
+.question-text svg{display:block;width:100%;max-width:430px;height:auto;margin:10px auto 4px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:8px}
+@media(max-width:640px){
+  .phase-launch{flex-direction:column;align-items:flex-start}
+  .diagram-card{padding:20px}
+  .dgm-body{gap:18px}
+}

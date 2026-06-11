@@ -26,6 +26,7 @@
     <button class="tab-btn" data-view="exam">Predicted Final</button>
     <button class="tab-btn" data-view="exam2">Predicted Final 2</button>
     <button class="tab-btn" data-view="flashcards">Flashcards</button>
+    <button class="tab-btn" data-view="labeling">Diagrams</button>
   </nav>
 </header>
 
@@ -61,6 +62,12 @@
         <h3>Flashcards</h3>
         <p>Flip-card drills on the key terms and definitions most likely to show up. Shuffle and self-test.</p>
         <span class="hc-link">Drill terms →</span>
+      </div>
+      <div class="home-card" data-go="labeling">
+        <div class="hc-icon">Label</div>
+        <h3>Diagrams &amp; Labeling</h3>
+        <p>The image questions: name the parts on each diagram, then identify mitosis &amp; meiosis phases from a picture.</p>
+        <span class="hc-link">Label diagrams →</span>
       </div>
     </div>
 
@@ -176,6 +183,12 @@
     </div>
     <div id="flashArea" class="flash-area"></div>
   </section>
+
+  <!-- DIAGRAMS & LABELING -->
+  <section class="view" id="view-labeling">
+    <h2 class="view-title">Diagrams &amp; Labeling</h2>
+    <div id="labelingApp"></div>
+  </section>
 </main>
 
 <footer class="site-footer">
@@ -184,5 +197,6 @@
 
 <script src="data.js"></script>
 <script src="app.js"></script>
+<script src="labeling.js"></script>
 </body>
 </html>
