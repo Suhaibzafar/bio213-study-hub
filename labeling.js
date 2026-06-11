@@ -41,19 +41,8 @@
     }
     return `<polygon points="${pts.trim()}" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>`;
   }
-  // chromosome glyphs (used by Ch.8/9 diagrams and the phase quiz)
-  function dupChrom(cx, cy, c, h = 17) {
-    // duplicated chromosome: two sister chromatids joined at a centromere
-    const d = (sx) =>
-      `<path d="M ${cx + sx} ${cy - h} q ${sx > 0 ? 6 : -6} ${h} 0 ${2 * h}" fill="none" stroke="${c}" stroke-width="7" stroke-linecap="round"/>`;
-    return d(-5) + d(5) + `<circle cx="${cx}" cy="${cy}" r="3.4" fill="#22262b"/>`;
-  }
-  function singleChrom(cx, cy, c, h = 17) {
-    // one chromatid (post-separation)
-    return `<path d="M ${cx} ${cy - h} q 6 ${h} 0 ${2 * h}" fill="none" stroke="${c}" stroke-width="7" stroke-linecap="round"/>` +
-      `<circle cx="${cx + 1.5}" cy="${cy}" r="3" fill="#22262b"/>`;
-  }
-  const GREEN = "#1f6b4f", GOLD = "#9a6b1e", GREEN2 = "#4ea27a", GOLD2 = "#c0903f";
+  // homolog colors used by the crossing-over diagram
+  const GREEN = "#1f6b4f", GOLD = "#9a6b1e";
 
   /* ============================================================
      LABELING DIAGRAMS
@@ -403,86 +392,55 @@
   })();
 
   /* ============================================================
-     PHASE-ID QUIZ  (reuses the global createQuiz engine)
-     Each cell scene is schematic: 2n = 2 (one green + one gold
-     homolog) so the mitosis/meiosis distinctions are visible.
+     PHASE-ID QUIZ — real micrographs (reuses global createQuiz)
+     Tiles are cropped from real onion root-tip light micrographs;
+     each phase was verified against the source image's own labels.
      ============================================================ */
-  function cell(inner, w = 360, h = 300) {
-    return wrap(`0 0 ${w} ${h}`,
-      `<ellipse cx="${w / 2}" cy="${h / 2}" rx="${w / 2 - 14}" ry="${h / 2 - 14}" fill="#faf8f3" stroke="#d6d0c2" stroke-width="2"/>` + inner);
-  }
-  function spindle(w, h, vertical) {
-    // poles left & right; faint fibers to the metaphase plate
-    let s = `<circle cx="20" cy="${h / 2}" r="5" fill="#6b7178"/><circle cx="${w - 20}" cy="${h / 2}" r="5" fill="#6b7178"/>`;
-    for (let i = -1; i <= 1; i++) {
-      s += `<line x1="22" y1="${h / 2}" x2="${w / 2}" y2="${h / 2 + i * 40}" stroke="#e0d8c6" stroke-width="1.5"/>`;
-      s += `<line x1="${w - 22}" y1="${h / 2}" x2="${w / 2}" y2="${h / 2 + i * 40}" stroke="#e0d8c6" stroke-width="1.5"/>`;
-    }
-    return s;
-  }
-  const W = 360, H = 300, CX = W / 2, CY = H / 2;
+  const microQ = (file, cap) =>
+    `<figure class="micro"><img src="images/${file}" alt="light micrograph of dividing plant cells" loading="lazy"><figcaption>${cap}</figcaption></figure>`;
 
   const PHASE_Q = [
     {
-      q: cell(
-        // prophase: condensed dup chromosomes, fragmenting envelope
-        `<circle cx="${CX}" cy="${CY}" r="96" fill="none" stroke="#b9b09a" stroke-width="2" stroke-dasharray="7 7"/>` +
-        dupChrom(CX - 34, CY - 18, GREEN) + dupChrom(CX + 30, CY + 24, GOLD)),
-      options: ["Prophase", "Metaphase", "Anaphase", "Telophase", "S phase"],
+      q: microQ("m1.jpg", "Onion root tip · light micrograph (arrow marks the cell)"),
+      options: ["Prophase", "Metaphase", "Anaphase", "Telophase", "Interphase"],
       answer: 0,
-      explain: "Chromosomes have condensed into visible duplicated chromosomes and the nuclear envelope is breaking apart, but they haven't lined up yet — that's <b>prophase</b>."
+      explain: "The chromosomes have condensed into a visible tangle of threads but are <b>not lined up</b> yet, and the nuclear envelope is breaking down — <b>prophase</b>."
     },
     {
-      q: cell(spindle(W, H) +
-        dupChrom(CX, CY - 44, GREEN) + dupChrom(CX, CY + 44, GOLD)),
-      options: ["Metaphase (mitosis)", "Anaphase (mitosis)", "Metaphase I", "Prophase", "Telophase"],
+      q: microQ("m2.jpg", "Onion root tip · light micrograph (arrow marks the cell)"),
+      options: ["Metaphase", "Prophase", "Anaphase", "Telophase", "Interphase"],
       answer: 0,
-      explain: "Duplicated chromosomes are lined up <b>single file</b> on the metaphase plate (each chromosome alone, not paired) — <b>metaphase of mitosis</b>."
+      explain: "The condensed chromosomes are bunched together across the middle of the cell (the <b>metaphase plate</b>) — <b>metaphase</b>."
     },
     {
-      q: cell(spindle(W, H) +
-        singleChrom(70, CY - 30, GREEN) + singleChrom(86, CY + 18, GREEN) +
-        singleChrom(W - 70, CY - 30, GOLD) + singleChrom(W - 86, CY + 18, GOLD)),
-      options: ["Anaphase (mitosis)", "Metaphase (mitosis)", "Anaphase I", "Prophase", "Telophase"],
+      q: microQ("m3.jpg", "Onion root tip, 400× · light micrograph"),
+      options: ["Anaphase", "Metaphase", "Prophase", "Interphase", "Telophase"],
       answer: 0,
-      explain: "<b>Sister chromatids have split</b> and single chromatids are moving to opposite poles — <b>anaphase of mitosis</b>. (Professor: sister chromatids separate in anaphase.)"
+      explain: "You can see <b>two separate groups</b> of chromosomes pulling apart toward opposite poles — the sister chromatids have separated. That's <b>anaphase</b>. (Professor: sister chromatids separate in anaphase.)"
     },
     {
-      q: cell(spindle(W, H) +
-        // metaphase I: homologs PAIRED at the plate (tetrads)
-        dupChrom(CX - 13, CY - 44, GREEN) + dupChrom(CX + 13, CY - 44, GOLD) +
-        dupChrom(CX - 13, CY + 44, GREEN2) + dupChrom(CX + 13, CY + 44, GOLD2)),
-      options: ["Metaphase I", "Metaphase (mitosis)", "Anaphase I", "Prophase", "Metaphase II"],
+      q: microQ("m5.jpg", "Onion root tip · light micrograph"),
+      options: ["Interphase", "Prophase", "Metaphase", "Anaphase", "Telophase"],
       answer: 0,
-      explain: "Homologous chromosomes are lined up as <b>pairs (tetrads)</b> at the plate — that pairing only happens in meiosis, so this is <b>metaphase I</b>."
+      explain: "No condensed chromosomes are visible — each cell just has an intact, rounded <b>nucleus</b> (often with a dark nucleolus). The cell isn't dividing — <b>interphase</b>, the longest part of the cycle."
     },
     {
-      q: cell(spindle(W, H) +
-        // anaphase I: whole dup chromosomes (still 2 chromatids) go to poles
-        dupChrom(78, CY - 22, GREEN) + dupChrom(94, CY + 26, GREEN2) +
-        dupChrom(W - 78, CY - 22, GOLD) + dupChrom(W - 94, CY + 26, GOLD2)),
-      options: ["Anaphase I", "Anaphase (mitosis)", "Anaphase II", "Metaphase I", "Telophase"],
+      q: "On a real micrograph you see a cell with <b>two new nuclei reforming at opposite ends</b> and the cell starting to pinch in two. Which phase?",
+      options: ["Telophase", "Anaphase", "Metaphase", "Prophase", "Interphase"],
       answer: 0,
-      explain: "Whole chromosomes are moving to the poles but <b>each still has two sister chromatids</b> (still X-shaped). Homologs separated, chromatids did not — <b>anaphase I</b>."
+      explain: "Two daughter nuclei reforming + the cell pinching in (cell plate / cleavage furrow) = <b>telophase</b>, right before cytokinesis splits the cell."
     },
     {
-      q: cell(spindle(W, H) +
-        // anaphase II: sister chromatids separate (single chromatids to poles), smaller/haploid
-        singleChrom(80, CY, GREEN) + singleChrom(W - 80, CY, GREEN), 360, 220),
-      options: ["Anaphase II", "Anaphase I", "Anaphase (mitosis)", "Metaphase II", "Prophase II"],
+      q: "In <b>anaphase I of meiosis</b>, what gets pulled to opposite poles?",
+      options: ["Homologous chromosomes (each still 2 sister chromatids)", "Single sister chromatids", "Unreplicated single chromosomes", "Whole tetrads that stay together"],
       answer: 0,
-      explain: "<b>Single chromatids</b> separating to the poles in a haploid cell (no homolog partner present) — <b>anaphase II</b>. (Professor: sister chromatids separate in anaphase II.)"
+      explain: "Anaphase I separates <b>homologous chromosomes</b>; each chromosome still has its two sister chromatids joined at the centromere. Sisters don't split until <b>anaphase II</b>."
     },
     {
-      q: cell(
-        // telophase: two clusters + cleavage furrow
-        `<line x1="${CX}" y1="20" x2="${CX}" y2="46" stroke="#d6d0c2" stroke-width="3"/><line x1="${CX}" y1="${H - 20}" x2="${CX}" y2="${H - 46}" stroke="#d6d0c2" stroke-width="3"/>` +
-        `<ellipse cx="${CX - 64}" cy="${CY}" rx="40" ry="56" fill="none" stroke="#b9b09a" stroke-width="2"/>` +
-        `<ellipse cx="${CX + 64}" cy="${CY}" rx="40" ry="56" fill="none" stroke="#b9b09a" stroke-width="2"/>` +
-        singleChrom(CX - 64, CY, GREEN) + singleChrom(CX + 64, CY, GOLD)),
-      options: ["Telophase", "Anaphase", "Metaphase", "Prophase", "G₁ phase"],
+      q: "<b>Sister chromatids</b> separate from each other during which phase(s)?",
+      options: ["Anaphase of mitosis AND anaphase II of meiosis", "Anaphase I of meiosis only", "Metaphase of mitosis", "Prophase I", "Telophase"],
       answer: 0,
-      explain: "Two new nuclear envelopes are reforming around the chromosomes at each pole and the cell is pinching in (cleavage furrow) — <b>telophase</b> (followed by cytokinesis)."
+      explain: "Sister chromatids split in <b>anaphase of mitosis</b> and in <b>anaphase II</b> of meiosis. In anaphase I it's the homologs that separate. (Professor point!)"
     }
   ];
 
@@ -493,25 +451,41 @@
   if (!host) return;
 
   host.innerHTML = `
-    <p class="dgm-lead">Heard the final has <strong>image / labeling</strong> questions? This is built for exactly that. Drop the right label on each numbered marker, then check yourself — or run the <strong>Identify-the-Phase</strong> challenge. Everything here is keyed to the parts Dr.&nbsp;Babu stressed.</p>
+    <p class="dgm-lead">Heard the final has <strong>image questions</strong> — real micrographs where you name the phase, plus diagrams where you label the parts? This is built for exactly that, keyed to what Dr.&nbsp;Babu stressed.</p>
 
     <div class="phase-launch">
       <div>
-        <h3>Identify the Phase</h3>
-        <p>A picture of a dividing cell appears — you pick the phase. Covers mitosis <em>and</em> the meiosis I vs II distinction (the classic trap: what separates in anaphase I vs anaphase II).</p>
+        <h3>Identify the Phase <span class="real-chip">real micrographs</span></h3>
+        <p>Actual light-microscope images of dividing cells — you pick the phase, just like a lab practical. Covers prophase through telophase, plus the meiosis anaphase&nbsp;I vs anaphase&nbsp;II trap.</p>
       </div>
-      <button class="btn-primary" id="startPhaseBtn">Start Phase ID (${PHASE_Q.length} images)</button>
+      <button class="btn-primary" id="startPhaseBtn">Start Phase ID (${PHASE_Q.length} questions)</button>
     </div>
     <div id="phaseRunner" class="quiz-runner hidden" style="margin-top:18px"></div>
 
-    <h3 class="dgm-h">Label the diagrams</h3>
+    <h3 class="dgm-h">Reference: the phases in real cells</h3>
+    <p class="dgm-sub">Study these first — real micrographs with the phases labeled — then test yourself above.</p>
+    <div class="ref-grid">
+      <figure class="ref-fig">
+        <img src="images/onion_cc0.jpg" alt="Onion root tip mitosis with phases labeled" loading="lazy">
+        <figcaption><b>Mitosis</b> in an onion (<i>Allium</i>) root tip — prophase, metaphase, anaphase and telophase labeled. The classic lab-practical image.</figcaption>
+      </figure>
+      <figure class="ref-fig">
+        <img src="images/meiosis_ref.jpg" alt="Lilium meiosis I pollen mother cells" loading="lazy">
+        <figcaption><b>Meiosis&nbsp;I</b> in <i>Lilium</i> pollen mother cells — metaphase&nbsp;I, anaphase&nbsp;I and telophase&nbsp;I are visible across the four cells.</figcaption>
+      </figure>
+    </div>
+
+    <h3 class="dgm-h">Label the structures</h3>
+    <p class="dgm-sub">Molecules and processes have no photograph — tests use diagrams for these. Drop the right label on each numbered marker, then Check.</p>
     <div class="chapter-switch" id="dgmSwitch">
       <button class="chip active" data-ch="all">All</button>
       <button class="chip" data-ch="7">Ch. 7</button>
       <button class="chip" data-ch="8">Ch. 8</button>
       <button class="chip" data-ch="9">Ch. 9</button>
     </div>
-    <div id="dgmList"></div>`;
+    <div id="dgmList"></div>
+
+    <p class="img-credits">Image credits (via Wikimedia Commons): mitosis reference and the prophase / metaphase / interphase tiles — “Mitosis in Onion Root Tip” by Ibn Anvar (CC0); anaphase tile — “Mitosis onion root tip 400×” by John Alan Elson (CC BY-SA 4.0); meiosis reference by Josef Reischig (CC BY-SA 3.0).</p>`;
 
   function renderDiagram(d, idx) {
     const bank = shuffle(d.parts.map((p) => p.label));

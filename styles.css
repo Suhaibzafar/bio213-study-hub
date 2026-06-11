@@ -231,6 +231,17 @@ table.note-table tr:nth-child(even) td{background:var(--surface-2)}
 .dgm-blurbs b{color:var(--accent-deep)}
 /* phase-ID images render inside the quiz question paragraph */
 .question-text svg{display:block;width:100%;max-width:430px;height:auto;margin:10px auto 4px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:8px}
+/* real-image phase quiz + reference panel */
+.real-chip{display:inline-block;font-size:.58rem;letter-spacing:.07em;text-transform:uppercase;vertical-align:middle;background:var(--accent);color:#fff;padding:3px 9px;border-radius:999px;margin-left:8px;font-weight:700}
+.dgm-sub{color:var(--muted);font-size:.92rem;margin:0 0 16px;max-width:66ch}
+.ref-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-bottom:8px}
+.ref-fig{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;box-shadow:var(--shadow-sm)}
+.ref-fig img{width:100%;height:auto;border-radius:6px;display:block}
+.ref-fig figcaption{font-size:.84rem;color:var(--ink-soft);margin-top:8px;line-height:1.5}
+.micro{margin:8px 0 4px;text-align:center}
+.micro img{width:100%;max-width:300px;height:auto;border:1px solid var(--line-strong);border-radius:8px;background:#0b0b10}
+.micro figcaption{font-size:.78rem;color:var(--muted);margin-top:7px;font-style:italic}
+.img-credits{font-size:.74rem;color:var(--muted);margin-top:34px;border-top:1px solid var(--line);padding-top:14px;line-height:1.6}
 @media(max-width:640px){
   .phase-launch{flex-direction:column;align-items:flex-start}
   .diagram-card{padding:20px}
